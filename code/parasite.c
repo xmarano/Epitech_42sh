@@ -92,7 +92,8 @@ void cat_the_bin(Hello_t *gogo, char **env)
         }
     }
     null_comm(gogo);
-    my_printf("%s: Command not found.\n", gogo->args[0]);
+    if (gogo->bzez != 77)
+        my_printf("%s: Command not found.\n", gogo->args[0]);
     exit(1);
 }
 
@@ -104,4 +105,6 @@ void definition(Hello_t *gogo)
     gogo->token = NULL;
     gogo->i = 0;
     gogo->n = 0;
+    gogo->bzez = 0;
+    gogo->args = malloc(sizeof(char *) * BUFFER_SIZE);
 }

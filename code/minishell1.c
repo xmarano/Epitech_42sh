@@ -100,6 +100,9 @@ int execute_fork(int ac, char **av, char **env, Hello_t *gogo)
         return all_env(ac, av, env, gogo);
     if (my_strcmp2(type, "cd") == 55)
         return build_cd(gogo, env);
+    for (int i = 0; gogo->args[i] != NULL; i++)
+        if (my_strcmp2(gogo->args[i], "|") == 55)
+            return exec_pipe(gogo, env);
     file = look_redirect(gogo);
     if (file != NULL)
         i = 1;

@@ -29,15 +29,19 @@ typedef struct Global {
     size_t input_size;
     ssize_t input_length;
     char *temp;
-    char *args[64];
+    char **args;
     char *token;
     int i;
     int n;
+    int bzez;
     pid_t pid;
     int has_slash;
+    char *copy;
+    int number_token;
 } Hello_t;
 
 void definition(Hello_t *gogo);
+int exec_pipe(Hello_t *gogo, char **env);
 int redir_left(Hello_t *gogo, char *file, char **env);
 int look_errno(Hello_t *gogo);
 void cat_the_bin(Hello_t *gogo, char **env);
