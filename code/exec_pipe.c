@@ -7,6 +7,18 @@
 
 #include "my.h"
 
+static void null_comm(Hello_t *gogo)
+{
+    char *line = "|";
+
+    for (int i = 0; gogo->args[i] != NULL; i++) {
+        if (my_strcmp(gogo->args[0], "|") == 55 && gogo->args[1] == NULL) {
+            my_printf("Invalid null command.\n");
+            exit(1);
+        }
+    }
+}
+
 int is_pipe(Hello_t *gogo)
 {
     for (int i = 0; gogo->args[i] != NULL; i++) {
@@ -97,6 +109,7 @@ int exec_pipe(Hello_t *gogo, char **env)
     char **tab;
     int cpid;
 
+    null_comm(gogo);
     gogo->bzez = 77;
     if (multi_pipe_handling(gogo) == -1)
         return 0;
