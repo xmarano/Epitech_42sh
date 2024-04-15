@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** Minishell1
 ** File description:
-** main1.c
+** main.c
 */
 
 #include "my.h"

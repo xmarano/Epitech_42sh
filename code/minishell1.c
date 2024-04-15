@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** Minishell1
+** B-PSU-200-MAR-2-1-42sh-anthony.colombani-gailleur
 ** File description:
-** main.c
+** minishell1.c
 */
 
 #include "my.h"

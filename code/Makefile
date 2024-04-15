@@ -1,8 +1,8 @@
 ##
 ## EPITECH PROJECT, 2023
-## MAKEFILES
+## B-PSU-200-MAR-2-1-42sh-anthony.colombani-gailleur
 ## File description:
-## COMPILE
+## MAKEFILE
 ##
 
 NAME	=	gcc *.c -o 42sh -L. -lmy
