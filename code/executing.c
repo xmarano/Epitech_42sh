@@ -10,8 +10,10 @@
 static ssize_t check_uf_null(ssize_t chars_read, int fd, char *line)
 {
     chars_read = read(fd, line, 1);
-    if (chars_read > 0 && (line[0] == ';' || line[0] == '\n')) {
-        while (chars_read > 0 && (line[0] == ';' || line[0] == '\n')) {
+    if (chars_read > 0 && (line[0] == ';' || line[0] == '\n'
+    || line[0] == '&') ) {
+        while (chars_read > 0 && (line[0] == ';' || line[0] == '\n'
+        || line[0] == '&')) {
             chars_read = read(fd, line, 1);
         }
     }
@@ -29,7 +31,7 @@ static int condition(size_t len, size_t bufsize, char *line)
     return 0;
 }
 
-char *getline_custom(char delim, char delim2)
+char *getline_custom(char delim, char delim2, char *delim3)
 {
     size_t bufsize = 128;
     char *line = malloc(bufsize * sizeof(char));
@@ -41,8 +43,10 @@ char *getline_custom(char delim, char delim2)
     chars_read = check_uf_null(chars_read, fd, line);
     while (chars_read > 0) {
         del = line[len];
-        if (del == delim || del == delim2)
+        if (del == delim || del == delim2 || (delim3 &&
+        strstr(delim3, line + len) != NULL)) {
             break;
+        }
         len++;
         condition(len, bufsize, line);
         chars_read = read(fd, line + len, 1);
@@ -57,7 +61,7 @@ int parsing_input(Hello_t *gogo)
     size_t input_size = 0;
 
     if (!isatty(0) == 1) {
-        input = getline_custom(';', '\n');
+        input = getline_custom(';', '\n', "&&");
     } else {
         gogo->input_length = getline(&input, &input_size, stdin);
     }

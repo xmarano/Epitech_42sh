@@ -16,6 +16,6 @@ all :
 fclean :
 	rm -f lib/my/libmy.a
 	rm -f code/libmy.a
-	rm -f mysh
+	rm -f 42sh
 
 re: fclean all

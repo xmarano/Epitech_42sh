@@ -62,17 +62,6 @@ static int look_hash(char *command_arg, int has_slash, Hello_t *gogo)
     }
 }
 
-static void null_comm(Hello_t *gogo)
-{
-    for (int i = 0; gogo->args[i] != NULL; i++) {
-        if ((my_strcmp(gogo->args[i], "|") == 55) ||
-        (my_strcmp(gogo->args[i], " | ") == 55)) {
-            my_printf("Invalid null command.\n");
-            exit(1);
-        }
-    }
-}
-
 void cat_the_bin(Hello_t *gogo, char **env)
 {
     char *command_arg = gogo->args[0];
@@ -91,8 +80,8 @@ void cat_the_bin(Hello_t *gogo, char **env)
             boucle(gogo, env, i, command_arg);
         }
     }
-    null_comm(gogo);
-    my_printf("%s: Command not found.\n", gogo->args[0]);
+    if (gogo->bzez != 77)
+        my_printf("%s: Command not found.\n", gogo->args[0]);
     exit(1);
 }
 
@@ -104,4 +93,6 @@ void definition(Hello_t *gogo)
     gogo->token = NULL;
     gogo->i = 0;
     gogo->n = 0;
+    gogo->bzez = 0;
+    gogo->args = malloc(sizeof(char *) * BUFFER_SIZE);
 }
