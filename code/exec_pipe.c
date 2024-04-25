@@ -60,7 +60,7 @@ static int pipe_part3(Hello_t *gogo, int status, int cpid, int *fd)
     char **tab;
     pid_t pid;
 
-    waitpid(cpid, &status, 1);
+    waitpid(cpid, &status, 0);
     close(fd[1]);
     dup2(fd[0], STDIN_FILENO);
     close(fd[0]);
