@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
-** Minishell1
+** B-PSU-200-MAR-2-1-42sh-anthony.colombani-gailleur
 ** File description:
-** main.c
+** minishell1.c
 */
 
 #include "my.h"
@@ -95,14 +95,14 @@ int execute_fork(int ac, char **av, char **env, Hello_t *gogo)
     char *file = NULL;
     int i = 0;
 
+    for (int i = 0; gogo->args[i] != NULL; i++)
+        if (my_strcmp2(gogo->args[i], "|") == 55)
+            return exec_pipe(gogo, env);
     if (my_strcmp2(type, "env") == 55 ||
         my_strcmp2(type, "setenv") == 55 || my_strcmp2(type, "unsetenv") == 55)
         return all_env(ac, av, env, gogo);
     if (my_strcmp2(type, "cd") == 55)
         return build_cd(gogo, env);
-    for (int i = 0; gogo->args[i] != NULL; i++)
-        if (my_strcmp2(gogo->args[i], "|") == 55)
-            return exec_pipe(gogo, env);
     file = look_redirect(gogo);
     if (file != NULL)
         i = 1;

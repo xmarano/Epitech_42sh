@@ -10,8 +10,8 @@
 static ssize_t check_uf_null(ssize_t chars_read, int fd, char *line)
 {
     chars_read = read(fd, line, 1);
-    if (chars_read > 0 && (line[0] == ';' || line[0] == '\n'
-    || line[0] == '&')) {
+    if (chars_read > 0 && (line[0] == ';'
+    || line[0] == '\n' || line[0] == '&')) {
         while (chars_read > 0 && (line[0] == ';' || line[0] == '\n'
         || line[0] == '&')) {
             chars_read = read(fd, line, 1);

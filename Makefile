@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2023
-## sitting_up
+## B-PSU-200-MAR-2-1-42sh-anthony.colombani-gailleur
 ## File description:
 ## Makefile
 ##

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** 42sh
+** B-PSU-200-MAR-2-1-42sh-anthony.colombani-gailleur
 ** File description:
 ** exec_pipe.c
 */
@@ -16,6 +16,10 @@ static void null_comm(Hello_t *gogo)
             my_printf("Invalid null command.\n");
             exit(1);
         }
+    }
+    if (my_strcmp2(gogo->args[0], "setenv")) {
+        if (my_strcmp2(gogo->args[1], "|"))
+            exit(1);
     }
 }
 
@@ -60,7 +64,7 @@ static int pipe_part3(Hello_t *gogo, int status, int cpid, int *fd)
     char **tab;
     pid_t pid;
 
-    waitpid(cpid, &status, 0);
+    waitpid(cpid, &status, 1);
     close(fd[1]);
     dup2(fd[0], STDIN_FILENO);
     close(fd[0]);
