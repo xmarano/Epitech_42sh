@@ -79,36 +79,43 @@ static int tokenisation(Hello_t *gogo)
     }
 }
 
-static int what_fct(Hello_t *gogo, int i, char *file, char **env)
+char *concatenate_strings(char **strings)
 {
-    if (i == 1 && gogo->n == 4)
-        redir_left(gogo, file, env);
-    else if (i == 1)
-        redir_right(gogo, file, env);
-    else
-        suite(gogo, env);
+    size_t total_length = 0;
+    char *result;
+    size_t offset = 0;
+
+    for (int i = 0; strings[i] != NULL; i++) {
+        total_length += strlen(strings[i]);
+    }
+    result = (char *)malloc(total_length + 1);
+    for (int i = 0; strings[i] != NULL; i++) {
+        strcpy(result + offset, strings[i]);
+        offset += strlen(strings[i]);
+    }
+    return result;
 }
 
 int execute_fork(int ac, char **av, char **env, Hello_t *gogo)
 {
-    char *type = gogo->args[0];
-    char *file = NULL;
-    int i = 0;
+    char *concatenated;
 
-    for (int i = 0; gogo->args[i] != NULL; i++)
-        if (my_strcmp2(gogo->args[i], "|") == 55)
-            return exec_pipe(gogo, env);
-    if (my_strcmp2(type, "env") == 55 ||
-        my_strcmp2(type, "setenv") == 55 || my_strcmp2(type, "unsetenv") == 55)
+    if (my_strcmp2(gogo->args[0], "env") == 55 ||
+        my_strcmp2(gogo->args[0], "setenv") == 55 ||
+        my_strcmp2(gogo->args[0], "unsetenv") == 55)
         return all_env(ac, av, env, gogo);
-    if (my_strcmp2(type, "cd") == 55)
+    if (my_strcmp2(gogo->args[0], "cd") == 55)
         return build_cd(gogo, env);
-    file = look_redirect(gogo);
-    if (file != NULL)
-        i = 1;
+    concatenated = concatenate_strings(gogo->args);
+    if (system(concatenated) != -1) {
+        if (isatty(0) != 1)
+            exit(0);
+        gogo->executed = 1;
+    }
     gogo->pid = fork();
     if (gogo->pid == 0) {
-        what_fct(gogo, i, file, env);
+        if (gogo->executed == 0)
+            suite(gogo, env);
     } else
         return (stati());
 }

@@ -26,7 +26,7 @@ static int prompt(void)
 
 int main(int ac, char **av, char **env)
 {
-    Hello_t gogo;
+    Hello_t gogo = {0};
 
     definition(&gogo);
     if (ac >= 2)

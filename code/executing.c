@@ -73,6 +73,6 @@ int parsing_input(Hello_t *gogo)
         gogo->input_length++;
     }
     gogo->i = 0;
-    gogo->token = strtok(input, " \t\n");
+    gogo->token = strtok(input, "\t\n");
     return 0;
 }

@@ -38,6 +38,7 @@ typedef struct Global {
     int has_slash;
     char *copy;
     int number_token;
+    int executed;
 } Hello_t;
 
 void definition(Hello_t *gogo);
